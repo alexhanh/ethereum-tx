@@ -1,8 +1,8 @@
 #lifted from https://github.com/janx/ruby-ethereum
 #TODO: try to extract gem for common behavior
-require_relative '../ethereum'
+require_relative '../ethereum_tx'
 
-module Ethereum
+module EthereumTx
   class Tx
 
     include RLP::Sedes::Serializable

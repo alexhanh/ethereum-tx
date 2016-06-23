@@ -1,4 +1,4 @@
-module Ethereum
+module EthereumTx
   module Utils
 
     extend self

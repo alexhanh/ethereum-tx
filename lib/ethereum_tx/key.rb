@@ -1,4 +1,4 @@
-module Ethereum
+module EthereumTx
   class Key
 
     attr_reader :private_key, :public_key

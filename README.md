@@ -23,24 +23,24 @@ Or install it yourself as:
 ### Keys
 Create a new key:
 ```
-key = Ethereum::Key.new
+key = EthereumTx::Key.new
 ```
 Or import and existing one:
 ```
-old_key = Ethereum::Key.new private_key
+old_key = EthereumTx::Key.new private_key
 ```
 
 ### Transactions
 
 Build a transaction from scratch:
 ```
-tx = Ethereum::Tx.new to: key.address, gas_price: 25_000, gas_limit: 25_000
+tx = EthereumTx::Tx.new to: key.address, gas_price: 25_000, gas_limit: 25_000
 tx.data = 'abcdef' #optional
 tx.value = 1_000_000_000_000 #optional
 ```
 Or decode an encoded raw transaction:
 ```
-tx = Ethereum::Tx.decode hex
+tx = EthereumTx::Tx.decode hex
 ```
 
 Then sign the transaction:
