@@ -1,6 +1,10 @@
 #lifted from https://github.com/janx/ruby-ethereum
 #TODO: try to extract gem for common behavior
-require_relative '../ethereum'
+require 'digest/sha3'
+require 'ethereum/base'
+require 'ffi'
+require 'money-tree'
+require 'rlp'
 
 module Ethereum
   class Tx

@@ -1,8 +1,3 @@
-require 'digest/sha3'
-require 'ffi'
-require 'money-tree'
-require 'rlp'
-
 module Ethereum
 
   BYTE_ZERO = "\x00".freeze
