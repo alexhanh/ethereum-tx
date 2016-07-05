@@ -1,4 +1,4 @@
-describe Ethereum::Tx, type: :model do
+describe EthereumTx::Tx, type: :model do
   let(:nonce) { rand 1_000_000 }
   let(:gas_price) { 10_000 }
   let(:gas_limit) { 100_000 }
@@ -9,7 +9,7 @@ describe Ethereum::Tx, type: :model do
   let(:r) { rand(1_000_000_000) }
   let(:s) { rand(1_000_000_000) }
   let(:options) { {} }
-  let(:tx) { Ethereum::Tx.new(nonce, gas_price, gas_limit, recipient, value, data, v, r, s, options) }
+  let(:tx) { EthereumTx::Tx.new(nonce, gas_price, gas_limit, recipient, value, data, v, r, s, options) }
 
   describe "#initialize" do
     it "sets the arguments in the order of serializable fields" do
@@ -36,30 +36,30 @@ describe Ethereum::Tx, type: :model do
       let(:gas_limit) { 20_000 }
 
       it "raises an InvalidTransaction error" do
-        expect { tx }.to raise_error(Ethereum::InvalidTransaction, "Gas limit too low")
+        expect { tx }.to raise_error(EthereumTx::InvalidTransaction, "Gas limit too low")
       end
     end
 
     context "there are values beyond the unsigned integer max" do
-      let(:nonce) { Ethereum::UINT_MAX + 1 }
+      let(:nonce) { EthereumTx::UINT_MAX + 1 }
 
       it "raises an InvalidTransaction error" do
-        expect { tx }.to raise_error(Ethereum::InvalidTransaction, "Values way too high!")
+        expect { tx }.to raise_error(EthereumTx::InvalidTransaction, "Values way too high!")
       end
     end
   end
 
   describe ".decode" do
-    let(:key) { Ethereum::Key.new }
+    let(:key) { EthereumTx::Key.new }
     let(:tx1) { tx.sign key }
 
     it "returns an instance that matches the original enocded one" do
-      tx2 = Ethereum::Tx.decode tx1.encoded
+      tx2 = EthereumTx::Tx.decode tx1.encoded
       expect(tx2).to eq(tx1)
     end
 
     it "also accepts hex" do
-      tx2 = Ethereum::Tx.decode(Ethereum::Utils.bin_to_hex tx1.encoded)
+      tx2 = EthereumTx::Tx.decode(EthereumTx::Utils.bin_to_hex tx1.encoded)
       expect(tx2).to eq(tx1)
     end
   end
@@ -68,7 +68,7 @@ describe Ethereum::Tx, type: :model do
     let(:v) { nil }
     let(:r) { nil }
     let(:s) { nil }
-    let(:key) { Ethereum::Key.new }
+    let(:key) { EthereumTx::Key.new }
 
     it "creates a recoverable signature for the transaction" do
       tx.sign key
@@ -78,7 +78,7 @@ describe Ethereum::Tx, type: :model do
   end
 
   describe "#to_h" do
-    let(:key) { Ethereum::Key.new }
+    let(:key) { EthereumTx::Key.new }
 
     before { tx.sign key }
 
@@ -96,13 +96,13 @@ describe Ethereum::Tx, type: :model do
     end
 
     it "can be converted back into a transaction" do
-      tx2 = Ethereum::Tx.new(tx.to_h)
+      tx2 = EthereumTx::Tx.new(tx.to_h)
       expect(tx2).to eq tx
     end
   end
 
   describe "#from" do
-    let(:key) { Ethereum::Key.new }
+    let(:key) { EthereumTx::Key.new }
     subject { tx.from }
 
     context "when the signature is present" do
