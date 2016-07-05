@@ -1,4 +1,5 @@
-require 'sha3-pure-ruby'
+# require 'sha3-pure-ruby'
+require 'sha3'
 require 'ffi'
 require 'money-tree'
 require 'rlp'
