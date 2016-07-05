@@ -4,8 +4,8 @@ module EthereumTx
     extend self
 
     def keccak256(message)
-      # SHA3::Digest.digest(:sha256, message)
-      SHA3::Digest::SHA256.digest(message)
+      # SHA3::Digest::SHA256.digest(message)
+      Digest::SHA3.digest message, 256
     end
 
     def normalize_address(address)
